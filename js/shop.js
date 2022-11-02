@@ -74,11 +74,14 @@ var total = 0;
 
 let applied = false;
 
+let productsQuantity = 0;
+
 let cartItems = document.getElementById('cart_list');
 
 let totalPrice = document.getElementById('total_price');
 
 let totalQuantity = document.getElementById('count_product');
+
 
 
 
@@ -100,21 +103,30 @@ function buy(id) {
 
 // Exercise 2
 function cleanCart() {
-    cartList.splice(0, cartList.length);
+    cartList=[];
+    cart=[];
+
+    products.forEach(item => item.quantity = undefined);
+    console.log(products);
 
     cartItems.innerHTML = `
         <tr>
 			<th scope="row"></th>
-			<td>$</td>
 			<td></td>
-		    <td>$</td>
+			<td></td>
+		    <td></td>
 		</tr>
         `;
     totalPrice.innerHTML = `
         <div class="text-center fs-3">
-			Total: $<span id="total_price"></span>
+			Total: <span id="total_price"></span>
 		</div>
         `;
+
+    productsQuantity = 0;
+    totalQuantity.innerHTML = `
+    <span class="badge bg-secondary text-white ms-1 rounded-pill" id="count_product">${productsQuantity}</span>
+    `;
 }
 
 
@@ -237,6 +249,8 @@ function addToCart(id) {
         }
     }
 
+    console.log(products);
+
     productsQuantity = 0;
     totalQuantity.innerHTML = '';
 
@@ -257,19 +271,19 @@ function removeFromCart(id) {
             cart[i].quantity -= 1;
             cart[i].subtotal = cart[i].quantity * cart[i].price;
             applyPromotionsCart();
-
+            productsQuantity -= 1;
+            
 
         } else if (id == cart[i].id && cart[i].quantity == 1) {
             cart[i].quantity = undefined;
             cart.splice(i, 1);
+            productsQuantity -= 1;
         }
     }
 
-    productsQuantity -= 1;
     totalQuantity.innerHTML = `
-        <span class="badge bg-secondary text-white ms-1 rounded-pill" id="count_product">${productsQuantity}</span>
-        `;
-
+            <span class="badge bg-secondary text-white ms-1 rounded-pill" id="count_product">${productsQuantity}</span>
+            `;
 }
 
 function open_modal() {

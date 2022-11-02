@@ -23,7 +23,8 @@ function validate() {
 	const PassOK = /^(?=.*?\d)(?=.*?[a-zA-Z])[a-zA-Z\d]+$/;
 	const PhoneOK = /^[0-9]{9}$/;
 
-
+	
+	
 
 
 	// Validate fields entered by the user: name, phone, password, and email
